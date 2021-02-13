@@ -49,7 +49,6 @@ def load_dict_data(total_nums, target_nums):
             target_data.append(all_data_list[random_index])
             if len(target_data) == target_nums:
                 break
-
     return all_data, target_data
 
 
