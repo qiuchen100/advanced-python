@@ -15,6 +15,7 @@ server.listen()
 # sock.send(f'Hello, {data_str}!'.encode('utf8'))
 # server.close()
 
+
 def handle_sock(sock, addr):
     while True:
         data = sock.recv(1024)
@@ -26,9 +27,12 @@ def handle_sock(sock, addr):
         re_data = input("请回复：")
         sock.send(re_data.encode('utf8'))
 
+
 if __name__ == '__main__':
     while True:
         sock, addr = server.accept()
         client_thread = threading.Thread(target=handle_sock, args=(sock, addr))
         client_thread.start()
+        # threading.current_thread().setDaemon(True)
+    # print('exit!')
     # server.close()

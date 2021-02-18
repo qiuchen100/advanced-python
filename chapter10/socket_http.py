@@ -5,8 +5,12 @@
 import socket
 from urllib.parse import urlparse
 
+url_template = 'http://shop.projectsedu.com/goods/{}/'
+urls = list(url_template.format(i) for i in range(1, 20))
+
+
 def get_url(url):
-    #通过socket请求html
+    # 通过socket请求html
     url = urlparse(url)
     host = url.netloc
     path = '/' if url.path == '' else url.path
@@ -29,5 +33,10 @@ def get_url(url):
     print(html_data)
     client.close()
 
+
 if __name__ == '__main__':
-    get_url('http://www.baidu.com')
+    import time
+    start_time = time.time()
+    for url in urls:
+        get_url(url)
+    print(time.time() - start_time)

@@ -9,11 +9,14 @@ from selectors import DefaultSelector, EVENT_READ, EVENT_WRITE
 # 使用select完成http请求
 
 selector = DefaultSelector()
+url_template = 'http://shop.projectsedu.com/goods/{}/'
+urls = list(url_template.format(i) for i in range(1, 20))
 
 
 class Fetcher:
     def __init__(self, url):
-        url = urlparse(url)
+        self.url = url
+        url = urlparse(self.url)
         self.path = '/' if url.path == '' else url.path
         self.host = url.netloc
         self.data = b''
@@ -31,11 +34,14 @@ class Fetcher:
         if d:
             self.data += d
         else:
+            print('*' * 100)
             selector.unregister(key.fd)
             data = self.data.decode('utf8')
             html_data = data.split('\r\n\r\n')[1]
             print(html_data)
+            # selector.unregister(key.fd)
             self.client.close()
+            urls.remove(self.url)
 
     def get_url(self):
         # 通过socket请求html
@@ -49,7 +55,7 @@ class Fetcher:
 
 def loop():
     """事件循环，不停的请求socket的状态并调用对应的回调函数"""
-    while True:
+    while urls:
         ready = selector.select()
         for key, mask in ready:
             call_back = key.data
@@ -58,6 +64,10 @@ def loop():
 
 
 if __name__ == '__main__':
-    fetcher = Fetcher('http://www.baidu.com')
-    fetcher.get_url()
+    import time
+    start_time = time.time()
+    for url in urls:
+        Fetcher(url).get_url()
     loop()
+    print(time.time() - start_time)
+
