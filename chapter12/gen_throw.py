@@ -12,9 +12,11 @@ def gen_func():
     yield 3
     return "ok"
 
+
 if __name__ == '__main__':
     gen = gen_func()
     print(next(gen))
-    gen.throw(Exception, 'download error')
+    i = gen.throw(Exception, 'download error')
+    print(i)  # 2
     print(next(gen))
-    gen.throw(Exception, 'download error')
+    gen.throw(Exception, 'download error2')

@@ -1,13 +1,16 @@
 # -*- coding: utf-8 -*-
 
+
 def get_url(url):
     #do something
     html = get_html(url)
     #parse html
     urls = parse_url(html)
 
+
 def get_html(url):
     pass
+
 
 def parse_url(html):
     pass
@@ -25,6 +28,7 @@ def gen_func():
     return "ok"
 
 # 1.生成器不只可以产出值，还可以接收值
+
 
 if __name__ == '__main__':
     gen = gen_func()
