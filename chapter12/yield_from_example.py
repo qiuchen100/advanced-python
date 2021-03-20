@@ -4,6 +4,7 @@ final_result = {}
 
 
 def sales_sum(prod_name):
+    print(f'sales_sum: {prod_name}')
     total = 0
     nums = []
     while True:
@@ -35,6 +36,7 @@ def main():
         for value in dataset:
             m.send(value)
         m.send(None)  # 发送None结束协程
+        print(final_result)
 
 
 if __name__ == '__main__':

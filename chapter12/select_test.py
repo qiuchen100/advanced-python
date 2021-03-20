@@ -46,5 +46,6 @@ def get_url(url):
     print(html_data)
     client.close()
 
+
 if __name__ == '__main__':
     get_url('http://www.baidu.com')
